@@ -58,15 +58,17 @@ public class Exercice1_2 implements Exercice {
     outputFile.resetStatistics();
   }
 
-  	/**
+	/**
 	 * @see fr.univtours.polytech.di.multimedia.exercices.Exercice#getProcessor()
 	 */
 	@Override
-  public Processor getProcessor() {
-		NetworkBufferSender nbs = new NetworkBufferSender("localhost", networkBufferSize, inputFile); 
-	InputScanning inputReader = new NetworkBufferReceiver("localhost", nbs);
-	OutputScanning outputWriter = new ForwardFileOutputScanning(outputFile, fileBufferSize);
-	
-    return new SimpleProcessor(inputReader, outputWriter);
-  }
+	public Processor getProcessor() {
+		NetworkBufferSender nbs = new NetworkBufferSender("localhost",
+				networkBufferSize, inputFile);
+		InputScanning inputReader = new NetworkBufferReceiver("localhost", nbs);
+		OutputScanning outputWriter = new ForwardFileOutputScanning(outputFile,
+				fileBufferSize);
+
+		return new SimpleProcessor(inputReader, outputWriter);
+	}
 }
