@@ -1,8 +1,18 @@
 package fr.univtours.polytech.di.multimedia.exercices;
 
+import java.awt.BufferCapabilities;
+
+import fr.univtours.polytech.di.multimedia.primitives.BackwardFileInputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.File;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileInputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileOutputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.InputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.NetworkBufferReceiver;
+import fr.univtours.polytech.di.multimedia.primitives.NetworkBufferSender;
+import fr.univtours.polytech.di.multimedia.primitives.OutputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.Processor;
 import fr.univtours.polytech.di.multimedia.primitives.Record;
+import fr.univtours.polytech.di.multimedia.primitives.SimpleProcessor;
 
 /**
  * Exercice 1.2
@@ -48,12 +58,15 @@ public class Exercice1_2 implements Exercice {
     outputFile.resetStatistics();
   }
 
-  /**
-   * @see fr.univtours.polytech.di.multimedia.exercices.Exercice#getProcessor()
-   */
-  @Override
+  	/**
+	 * @see fr.univtours.polytech.di.multimedia.exercices.Exercice#getProcessor()
+	 */
+	@Override
   public Processor getProcessor() {
-    return null;
+		NetworkBufferSender nbs = new NetworkBufferSender("localhost", networkBufferSize, inputFile); 
+	InputScanning inputReader = new NetworkBufferReceiver("localhost", nbs);
+	OutputScanning outputWriter = new ForwardFileOutputScanning(outputFile, fileBufferSize);
+	
+    return new SimpleProcessor(inputReader, outputWriter);
   }
-
 }
