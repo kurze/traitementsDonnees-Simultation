@@ -189,13 +189,7 @@ public class MainFrame extends JFrame {
                   .println("L'exercice n'est pas implémentée. Réessayez plus tard.");
             } else {
               String fileName;
-              try {
-                fileName = processor.generateGraph();
-                image.setIcon(new ImageIcon(fileName));
-                new java.io.File(fileName).delete();
-              } catch (final IOException e) {
-                e.printStackTrace();
-              }
+              
               processor.run();
               processor.displayStatistics();
               if (exercice.checkOuputFiles()) {
@@ -205,6 +199,13 @@ public class MainFrame extends JFrame {
                     .println("*** ATTENTION : implémentation incorrecte ***");
               }
               System.out.println("");
+              try {
+                  fileName = processor.generateGraph();
+                  image.setIcon(new ImageIcon(fileName));
+                  new java.io.File(fileName).delete();
+                } catch (final IOException e) {
+                  e.printStackTrace();
+                }
             }
           }
         };
