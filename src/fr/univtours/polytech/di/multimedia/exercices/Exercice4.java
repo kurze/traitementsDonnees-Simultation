@@ -1,8 +1,12 @@
 package fr.univtours.polytech.di.multimedia.exercices;
 
+import fr.univtours.polytech.di.multimedia.primitives.BackwardFileInputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.File;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileInputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileOutputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.Processor;
 import fr.univtours.polytech.di.multimedia.primitives.Record;
+import fr.univtours.polytech.di.multimedia.primitives.SimpleProcessor;
 
 /**
  * Exercice 4
@@ -56,7 +60,10 @@ public class Exercice4 implements Exercice {
    */
   @Override
   public Processor getProcessor() {
-    return null;
+	  return new SimpleProcessor(
+			  new BackwardFileInputScanning(inputFile, fileBufferSize), 
+			  new ForwardFileOutputScanning(outputFile, fileBufferSize)
+			  );
   }
 
 }
