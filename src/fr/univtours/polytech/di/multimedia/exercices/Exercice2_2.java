@@ -2,9 +2,13 @@ package fr.univtours.polytech.di.multimedia.exercices;
 
 import java.util.Random;
 
+import fr.univtours.polytech.di.multimedia.exercices.Exercice2_1.FilteredProc;
 import fr.univtours.polytech.di.multimedia.primitives.File;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileInputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileOutputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.Processor;
 import fr.univtours.polytech.di.multimedia.primitives.Record;
+import fr.univtours.polytech.di.multimedia.primitives.SimpleProcessor;
 
 /**
  * Exercice 2.2
@@ -57,7 +61,33 @@ public class Exercice2_2 implements Exercice {
    */
   @Override
   public Processor getProcessor() {
-    return null;
+	  return new SimpleProcessor(
+			  new FilteredForwardFileInputScanning(inputFile,fileBufferSize), 
+			  new ForwardFileOutputScanning(outputFile,fileBufferSize)
+			  );
   }
+ 
+}
 
+class FilteredForwardFileInputScanning extends ForwardFileInputScanning {
+
+	public FilteredForwardFileInputScanning(File file, int bufferSize) {
+		super(file, bufferSize);
+	}
+
+	public boolean getFirstAvailableRecord(final Record record) {
+		while (true) {
+			if (buffer.getValidRecordCount() == 0) {
+				if (!readBuffer()) {
+					return false;
+				}
+			}
+			Record tmp = buffer.getRecord(bufferIndex);
+			if ((tmp.getNumericKey() % 2) == 0) {
+				record.copy(tmp);
+				return true;
+			}
+			markFirstAvailableRecordAsRead();
+		}
+	}
 }

@@ -13,13 +13,13 @@ public class ForwardFileInputScanning extends InputScanning {
   private int fileIndex;
 
   /** La position de l'enregistrement courant dans le buffer. */
-  private int bufferIndex;
+  protected int bufferIndex;
 
   /** Le fichier à partir du quel on lit les données. */
   private final File file;
 
   /** Le buffer. */
-  private final Buffer buffer;
+  protected final Buffer buffer;
 
   /**
    * Le constructeur.
@@ -88,7 +88,7 @@ public class ForwardFileInputScanning extends InputScanning {
    * Effectue la lecture d'un buffer à partir du fichier.
    * @return true si au moins un enregistrement a pu être lu.
    */
-  private boolean readBuffer() {
+  protected boolean readBuffer() {
     final int count = file.readLeftAlignedBuffer(fileIndex, buffer);
     if (count == 0) {
       return false;
