@@ -3,8 +3,13 @@ package fr.univtours.polytech.di.multimedia.exercices;
 import java.util.Random;
 
 import fr.univtours.polytech.di.multimedia.primitives.File;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileInputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileOutputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.InputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.OutputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.Processor;
 import fr.univtours.polytech.di.multimedia.primitives.Record;
+import fr.univtours.polytech.di.multimedia.primitives.TestProcessor;
 
 /**
  * Exercice 2.1
@@ -57,7 +62,36 @@ public class Exercice2_1 implements Exercice {
    */
   @Override
   public Processor getProcessor() {
-    return null;
+	
+    /*return new FilterProcessor(new ForwardFileInputScanning(inputFile, fileBufferSize), new ForwardFileOutputScanning(outputFile, fileBufferSize)) {
+		
+		@Override
+		protected boolean filterRecord(final Record record) {
+			int n = record.getNumericKey();
+			if((n%2) == 0)
+				return true;
+			else 
+				return false;
+		}
+	};*/
+	  return new PairProcessor(new ForwardFileInputScanning(inputFile, fileBufferSize), new ForwardFileOutputScanning(outputFile, fileBufferSize));
+  }
+
+  private class PairProcessor extends FilterProcessor {
+
+	public PairProcessor(InputScanning inputReader, OutputScanning outputWriter) {
+		super(inputReader, outputWriter);
+	}
+
+	@Override
+	protected boolean filterRecord(Record record) {
+		int n = record.getNumericKey();
+		if((n%2) == 0)
+			return true;
+		else 
+			return false;
+	}
+	  
   }
 
 }
