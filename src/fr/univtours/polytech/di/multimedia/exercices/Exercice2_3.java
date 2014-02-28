@@ -3,8 +3,12 @@ package fr.univtours.polytech.di.multimedia.exercices;
 import java.util.Random;
 
 import fr.univtours.polytech.di.multimedia.primitives.File;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileInputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileOutputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.OutputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.Processor;
 import fr.univtours.polytech.di.multimedia.primitives.Record;
+import fr.univtours.polytech.di.multimedia.primitives.SimpleProcessor;
 
 /**
  * Exercice 2.3
@@ -57,7 +61,28 @@ public class Exercice2_3 implements Exercice {
    */
   @Override
   public Processor getProcessor() {
-    return null;
+	  return new SimpleProcessor(
+			  new ForwardFileInputScanning(inputFile,fileBufferSize), 
+			  new FilteredForwardFileOutputScanning(outputFile,fileBufferSize)
+			  );
   }
+}
 
+class FilteredForwardFileOutputScanning extends
+		ForwardFileOutputScanning {
+
+	public FilteredForwardFileOutputScanning(File file, int bufferSize) {
+		super(file, bufferSize);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void writeRecord(final Record record) {
+		if ((record.getNumericKey() % 2) == 0) {
+			buffer.setRecord(bufferIndex, record);
+			bufferIndex++;
+			if (bufferIndex == buffer.getSize()) {
+				flushRecords();
+			}
+		}
+	}
 }

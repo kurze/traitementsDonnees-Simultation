@@ -14,13 +14,13 @@ public class ForwardFileOutputScanning extends OutputScanning {
   private int fileIndex;
 
   /** La position de l'enregistrement courant dans le buffer. */
-  private int bufferIndex;
+  protected int bufferIndex;
 
   /** Le fichier à partir du quel on lit les données. */
   private final File file;
 
   /** Le buffer. */
-  private final Buffer buffer;
+  protected final Buffer buffer;
 
   /**
    * Le constructeur
