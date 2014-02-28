@@ -3,6 +3,8 @@ package fr.univtours.polytech.di.multimedia.exercices;
 import java.util.Random;
 
 import fr.univtours.polytech.di.multimedia.primitives.File;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileInputScanning;
+import fr.univtours.polytech.di.multimedia.primitives.ForwardFileOutputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.Processor;
 import fr.univtours.polytech.di.multimedia.primitives.Record;
 
@@ -68,7 +70,7 @@ public class Exercice3_1 implements Exercice {
    */
   @Override
   public Processor getProcessor() {
-    return null;
+    return new KeySeparatorProcessor(new ForwardFileInputScanning(inputFile, fileBufferSize), new ForwardFileOutputScanning(outputpairFile, fileBufferSize),  new ForwardFileOutputScanning(outputimpairFile, fileBufferSize));
   }
 
 }
