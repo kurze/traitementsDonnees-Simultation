@@ -9,7 +9,6 @@ import fr.univtours.polytech.di.multimedia.primitives.InputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.OutputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.Processor;
 import fr.univtours.polytech.di.multimedia.primitives.Record;
-import fr.univtours.polytech.di.multimedia.primitives.TestProcessor;
 
 /**
  * Exercice 2.1

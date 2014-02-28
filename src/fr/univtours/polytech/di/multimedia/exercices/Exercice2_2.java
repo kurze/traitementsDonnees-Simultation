@@ -2,7 +2,6 @@ package fr.univtours.polytech.di.multimedia.exercices;
 
 import java.util.Random;
 
-import fr.univtours.polytech.di.multimedia.exercices.Exercice2_1.FilteredProc;
 import fr.univtours.polytech.di.multimedia.primitives.File;
 import fr.univtours.polytech.di.multimedia.primitives.ForwardFileInputScanning;
 import fr.univtours.polytech.di.multimedia.primitives.ForwardFileOutputScanning;
